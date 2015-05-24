@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"ProgmemText.c",
+				"ProgmemText.h",
+				"Milliseconds.c",
+				"Milliseconds.h",
+				"ExpPedal.c",
+				"ExpPedal.h"
+			],
+			"path": "."
+		}
+	]
+}
