@@ -42,7 +42,7 @@ void io_init()
     io_curr_pots[i] = avrAdc_inputVector[i];
   }
 
-  // TODO: finish initialization of inputs
+  modes_init();
 }
 
 
