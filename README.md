@@ -38,6 +38,7 @@ Modes are implemented by a const struct array - based statemachine which is part
 
 Encoder and buttons are sampled continuously in the device's main loop.
 
+There's a JS-based waveform generator included in the project (WaveformGenerator) folder.
 
 ##Licence
 Original developer: Andrej Radovic (r.andrej@gmail.com)
