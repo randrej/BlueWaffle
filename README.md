@@ -38,7 +38,7 @@ Modes are implemented by a const struct array - based statemachine which is part
 
 Encoder and buttons are sampled continuously in the device's main loop.
 
-There's a JS-based waveform generator included in the project (WaveformGenerator) folder.
+There's a JS-based waveform generator included in the project  - [WaveformGenerator](http://randrej.github.io/BlueWaffle/). You can use it to draw or make wavetables from functions by pasting arrays into a JSON file (See Waveforms.c's comments for explanation).
 
 ##Licence
 Original developer: Andrej Radovic (r.andrej@gmail.com)
