@@ -35,6 +35,7 @@
 *.d
 *.eep
 *.asm
+*makefile
 
 # Debug files
 *.dSYM/
