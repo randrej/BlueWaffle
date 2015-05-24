@@ -1,5 +1,5 @@
 # Blue Waffle
-An AVR based waveshaping/bitreduction pedal
+An AVR based waveshaping/bitreduction pedal - INCOMPLETE! will be done in the next week.
 
 ## Introduction
 Waveshapers and bitcrushers are pretty much the simplest digital signal processors, but they are very usable and versatile.
