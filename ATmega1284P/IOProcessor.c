@@ -95,8 +95,8 @@ void io_inputPoll()
       return;
     }
 
-    //if not, then this is a forbidden transition
-    //we just note the current state, but don't trigger
+    // if not, then this is a forbidden transition
+    // we just note the current state, but don't trigger
     io_curr_enc_state = encSt;
   }
 
