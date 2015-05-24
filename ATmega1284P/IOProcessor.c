@@ -49,13 +49,13 @@ void io_init()
 void io_inputPoll()
 {
   // encoder button handling
-  if (PC_CHECK(PC_IO_ENC_BUTTON))
+  if (!PC_CHECK(PC_IO_ENC_BUTTON))
   {
     // react immedeately (first trigger)
     modes_activeMode->buttonModeShortpressHandle();
     _delay_ms(IO_SHORT_DEBOUNCE_TIME);  // debounce
 
-    while (PC_CHECK(PC_IO_ENC_BUTTON))
+    while (!PC_CHECK(PC_IO_ENC_BUTTON))
       ;                                 // wait for release
     _delay_ms(IO_SHORT_DEBOUNCE_TIME);  // debounce
   }
@@ -68,6 +68,38 @@ void io_inputPoll()
     modes_activeMode->switchBitsHandle();
     _delay_ms(IO_SHORT_DEBOUNCE_TIME);  // debounce
   }
+
+  // encoder handling
+  uint8_t enc = IO_READ_ENCODER;
+  uint8_t encSt = pgm_read_byte(&io_greyToState[enc]);
+  // if a state change is detected
+  if (encSt != io_curr_enc_state)
+  {
+    // see if it's a change to the next state
+    uint8_t next = pgm_read_byte(&io_nextState[io_curr_enc_state]);
+    if (encSt == next)
+    {
+      io_curr_enc_state = encSt;
+      modes_activeMode->encoderIncHandle();
+      _delay_ms(IO_SHORT_DEBOUNCE_TIME);
+      return;
+    }
+
+    // or a previous state
+    uint8_t prev = pgm_read_byte(&io_prevState[io_curr_enc_state]);
+    if (encSt == prev)
+    {
+      io_curr_enc_state = encSt;
+      modes_activeMode->encoderDecHandle();
+      _delay_ms(IO_SHORT_DEBOUNCE_TIME);
+      return;
+    }
+
+    //if not, then this is a forbidden transition
+    //we just note the current state, but don't trigger
+    io_curr_enc_state = encSt;
+  }
+
 
   // pot handling
   if (avrAdc_inputVector[AVR_ADC_CHANNEL_CV] !=
