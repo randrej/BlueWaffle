@@ -63,3 +63,9 @@ $RECYCLE.BIN/
 ### Proteus ###
 *.pdsbak
 *.workspace
+
+
+
+### Sublime Text ###
+*.sublime-project
+*.sublime-workspace
