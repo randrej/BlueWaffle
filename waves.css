@@ -1,0 +1,52 @@
+.container {
+  margin: 0 auto;
+  width: 920px
+}
+
+.waveform {
+  position: relative;
+  border: 3px solid rgb(239, 38, 114);
+}
+
+.waveform > canvas {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.error {
+  font-weight: bold;
+  color: red;
+}
+
+.positive {
+  font-weight: bold;
+  color: green;
+}
+
+textarea {
+  margin: 0 auto;
+}
+
+a.accordion {
+  color: #000;
+  display: block;
+  font-weight: bold;
+  padding: 0.5em 0;
+  font-size: 150%;
+  text-decoration: none;
+}
+
+div.accordion {
+  border-top: 2px solid #666;
+  padding: 0.1em 0;
+  border-bottom: 2px solid #666;
+  margin-bottom: 0.3em;
+}
+
+h4 {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 0.2em;
+  margin-bottom: 0
+}
