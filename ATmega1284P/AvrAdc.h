@@ -48,5 +48,7 @@
  *  Interface
  ******************************************************************************/
 void avrAdc_init(void);
+extern volatile uint8_t avrAdc_inputVector[3];
+extern uint8_t avrAdc_inputVector_length;
 
 #endif  // AVR_ADC_H

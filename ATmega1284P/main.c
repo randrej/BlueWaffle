@@ -3,11 +3,11 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 
-
+#include "AvrMacroLibrary.h"
 #include "AvrAdc.h"
 #include "spiAdc.h"
 #include "LedsAndDisplay.h"
-#include "AvrMacroLibrary.h"
+#include "IOProcessor.h"
 
 #define TEST_PIN PORTB_P1
 
@@ -17,13 +17,11 @@ int main()
   spiAdc_init();
   avrAdc_init();
   lad_init();
-  lad_display_hex(12);
-  SETBITMASK(DDRD, 0b11111111);
-  SETBITMASK(DDRC, 0b11111111);
-  // PC_SET_OUTPUT(TEST_PIN);
+  io_init();
+
   while (1)
   {
-    // spiAdc_sampleAndProcess();
+    void io_inputPoll();
   }
   return 0;
 }

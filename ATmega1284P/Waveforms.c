@@ -5,7 +5,7 @@
  *  public
  ******************************************************************************/
 uint8_t waves_currentWaveformNumber;
-uint8_t waves_currentWaveformPointer;
+uint8_t* waves_currentWaveformPointer;
 
 /*******************************************************************************
  *  Python-assisted automatic code generation starts here!

@@ -165,13 +165,13 @@ ISR(TIMER0_COMPA_vect)
   // TODO: replace with bitcode
   if (spiAdc_bitmask_before)
   {
-    // TODO: replace with progmem function
-    WAVES_READ_SAMPLE
-    PORTC = WAVES_READ_SAMPLE(input & spiAdc_bitmask);
+    PORTC =
+      pgm_read_byte(&waves_currentWaveformPointer[input & spiAdc_bitmask]);
   }
   else
   {
-    PORTC = WAVES_READ_SAMPLE(input) & spiAdc_bitmask;
+    PORTC =
+      pgm_read_byte(&waves_currentWaveformPointer[input]) & spiAdc_bitmask;
   }
 
   PC_SET(SPI_ADC_CS);  // end conversion

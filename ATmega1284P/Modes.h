@@ -9,6 +9,7 @@
 #include "AvrMacroLibrary.h"
 #include "LedsAndDisplay.h"
 #include "spiAdc.h"
+#include "IOProcessor.h"
 
 /*******************************************************************************
  *  Constants
@@ -27,7 +28,7 @@ typedef const struct __modeDefinition
   void (*potBitsHandle)(void);
   void (*potCVHandle)(void);
 
-  void (switchBitsHandle*)(void);
+  void (*switchBitsHandle)(void);
 
   void (*buttonModeShortpressHandle)(void);
 
