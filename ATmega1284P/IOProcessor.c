@@ -23,13 +23,14 @@ volatile uint8_t io_curr_enc_state;
 void io_init()
 {
   // input states
-  PC_SET_INPUT_TRISTATE(PC_IO_ENC_BUTTON);
-  PC_SET_INPUT_TRISTATE(PC_IO_BITS_SWITCH);
-  PC_SET_INPUT_TRISTATE(PC_IO_ENC0);
-  PC_SET_INPUT_TRISTATE(PC_IO_ENC1);
+  PC_SET_INPUT_PULLUP(PC_IO_ENC_BUTTON);
+  PC_SET_INPUT_PULLUP(PC_IO_BITS_SWITCH);
+  PC_SET_INPUT_PULLUP(PC_IO_ENC0);
+  PC_SET_INPUT_PULLUP(PC_IO_ENC1);
 
   // read initial encoder state
   uint8_t encInp = IO_READ_ENCODER;
+  encInp ^= 0b11;
   io_curr_enc_state = pgm_read_byte(&io_greyToState[encInp]);
 
   // read initial button statuses
@@ -70,6 +71,7 @@ void io_inputPoll()
 
   // encoder handling
   uint8_t enc = IO_READ_ENCODER;
+  enc ^= 0b11;
   uint8_t encSt = pgm_read_byte(&io_greyToState[enc]);
   // if a state change is detected
   if (encSt != io_curr_enc_state)
@@ -101,8 +103,7 @@ void io_inputPoll()
 
 
   // pot handling
-  if (avrAdc_inputVector[AVR_ADC_INDEX_CV] !=
-      io_curr_pots[AVR_ADC_INDEX_CV])
+  if (avrAdc_inputVector[AVR_ADC_INDEX_CV] != io_curr_pots[AVR_ADC_INDEX_CV])
   {
     io_curr_pots[AVR_ADC_INDEX_CV] = avrAdc_inputVector[AVR_ADC_INDEX_CV];
     modes_activeMode->potCVHandle();
@@ -110,15 +111,13 @@ void io_inputPoll()
   if (avrAdc_inputVector[AVR_ADC_INDEX_FREQ] !=
       io_curr_pots[AVR_ADC_INDEX_FREQ])
   {
-    io_curr_pots[AVR_ADC_INDEX_FREQ] =
-      avrAdc_inputVector[AVR_ADC_INDEX_FREQ];
+    io_curr_pots[AVR_ADC_INDEX_FREQ] = avrAdc_inputVector[AVR_ADC_INDEX_FREQ];
     modes_activeMode->potFreqHandle();
   }
   if (avrAdc_inputVector[AVR_ADC_INDEX_BITS] !=
       io_curr_pots[AVR_ADC_INDEX_BITS])
   {
-    io_curr_pots[AVR_ADC_INDEX_BITS] =
-      avrAdc_inputVector[AVR_ADC_INDEX_BITS];
+    io_curr_pots[AVR_ADC_INDEX_BITS] = avrAdc_inputVector[AVR_ADC_INDEX_BITS];
     modes_activeMode->potBitsHandle();
   }
 }

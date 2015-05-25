@@ -18,10 +18,11 @@ int main()
   avrAdc_init();
   lad_init();
   io_init();
+  // cli();
 
   while (1)
   {
-    void io_inputPoll();
+    io_inputPoll();
   }
   return 0;
 }

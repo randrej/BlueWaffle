@@ -136,13 +136,10 @@ void spiAdc_init(void)
 
 void spiAdc_setSamplerate(uint8_t samplerate)
 {
-  ATOMIC_BLOCK(ATOMIC_FORCEON)
+  TIMER0_COMPARISON_A = samplerate;
+  if (TIMER0_COUNT_REGISTER > samplerate)
   {
-    TIMER0_COMPARISON_A = samplerate;
-    if (TIMER0_COUNT_REGISTER > samplerate)
-    {
-      TIMER0_COUNT_REGISTER = samplerate;
-    }
+    TIMER0_COUNT_REGISTER = samplerate;
   }
 }
 

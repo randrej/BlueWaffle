@@ -2,8 +2,8 @@
 /*******************************************************************************
  *  Public
  ******************************************************************************/
-volatile uint8_t lad_ledsArray[3] = {67, 69, 70};
-uint8_t lad_flashPins[3] = {LAD_LEDS, LAD_DISPLAY_MSD, LAD_DISPLAY_LSD};
+volatile uint8_t lad_ledsArray[3];
+uint8_t lad_flashPins[3] = {LAD_LEDS, LAD_DISPLAY_LSD, LAD_DISPLAY_MSD};
 
 
 /*******************************************************************************
@@ -29,29 +29,26 @@ const uint8_t lad_hexDigits[16] PROGMEM = {
 ******************************************************************************/
 void lad_init()
 {
-	SETBITMASK(LAD_OUT_DIR, 0b11111111);
-	SETBITMASK(LAD_PINS_DIR, LAD_PINS_MASK);
+  SETBITMASK(LAD_OUT_DIR, 0b11111111);
+  SETBITMASK(LAD_PINS_DIR, LAD_PINS_MASK);
 }
 
 void lad_display_dec(uint8_t number)
 {
-  uint8_t LSDigit = number % 10;
-  uint8_t MSDigit = (number / 10) % 10;
+  uint8_t MSDigit = number / 10;
+  number -= MSDigit * 10;
+  uint8_t LSDigit = number;
 
-
-  lad_ledsArray[1] = pgm_read_byte(&lad_decDigits[LSDigit]);
-  lad_ledsArray[2] = pgm_read_byte(&lad_decDigits[MSDigit]);
+  lad_ledsArray[LAD_INDEX_LSD] = pgm_read_byte(&lad_decDigits[LSDigit]);
+  lad_ledsArray[LAD_INDEX_MSD] = pgm_read_byte(&lad_decDigits[MSDigit]);
 }
 
 void lad_display_hex(uint8_t number)
 {
-  uint8_t LSDigit = number % 16;
-  uint8_t MSDigit = (number / 16) % 16;
+  uint8_t MSDigit = number >> 4;
+  number -= MSDigit << 4;
+  uint8_t LSDigit = number;
 
-  lad_ledsArray[1] = pgm_read_byte(&lad_hexDigits[LSDigit]);
-  lad_ledsArray[2] = pgm_read_byte(&lad_hexDigits[MSDigit]);
-
-  // lad_ledsArray[1] = LSDigit;
-  // lad_ledsArray[2] = MSDigit;
-
+  lad_ledsArray[LAD_INDEX_LSD] = pgm_read_byte(&lad_hexDigits[LSDigit]);
+  lad_ledsArray[LAD_INDEX_MSD] = pgm_read_byte(&lad_hexDigits[MSDigit]);
 }

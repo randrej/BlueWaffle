@@ -61,7 +61,8 @@ void avrAdc_init(void)
 }
 
 
-ISR(ADC_vect)
+ISR(ADC_vect,
+    ISR_NOBLOCK)  // non-blocking interrupt - we don't wanna block audio
 {
   // ignore every second conversion because channel switching occurs only on
   // next non-started conversion

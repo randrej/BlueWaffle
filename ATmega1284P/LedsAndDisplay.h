@@ -20,6 +20,12 @@
 #define LAD_PINS_PORT PORTA
 #define LAD_PINS_DIR DDRA
 
+#define LAD_INDEX_MSD 1
+#define LAD_INDEX_LSD 2
+#define LAD_INDEX_LEDS 0
+
+#define LAD_LEDS_ACCESS lad_ledsArray[LAD_INDEX_LEDS]
+
 /*******************************************************************************
  *  interface
  ******************************************************************************/

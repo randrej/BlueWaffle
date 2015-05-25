@@ -24,7 +24,7 @@
 #define IO_ENC_MASK 0b0011000
 #define IO_ENC_SHIFT 3
 #define IO_ENC_PIN PINB
-#define IO_READ_ENCODER ((IO_ENC_PIN & IO_ENC_MASK) << IO_ENC_SHIFT)
+#define IO_READ_ENCODER ((IO_ENC_PIN & IO_ENC_MASK) >> IO_ENC_SHIFT)
 
 
 /*******************************************************************************
