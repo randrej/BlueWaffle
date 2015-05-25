@@ -15,7 +15,6 @@ const uint8_t io_nextState[] PROGMEM = {1, 2, 3, 0};
 const uint8_t io_prevState[] PROGMEM = {3, 0, 1, 2};
 
 volatile uint8_t io_curr_enc_state;
-volatile uint8_t io_dbc_enc;
 
 /*******************************************************************************
  *  implementation

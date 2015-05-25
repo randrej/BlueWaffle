@@ -45,4 +45,7 @@
 void io_init();
 void io_inputPoll();
 
+extern volatile uint8_t io_curr_pots[3];
+extern volatile uint8_t io_curr_bits_sw;
+
 #endif  // IOPROCESSOR_H
