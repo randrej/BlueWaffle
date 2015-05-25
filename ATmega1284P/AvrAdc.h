@@ -43,6 +43,10 @@
 #define AVR_ADC_CHANNEL_FREQ 3
 #define AVR_ADC_CHANNEL_BITS 4
 
+#define AVR_ADC_INDEX_CV 0
+#define AVR_ADC_INDEX_FREQ 1
+#define AVR_ADC_INDEX_BITS 2
+
 
 /*******************************************************************************
  *  Interface

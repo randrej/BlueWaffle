@@ -22,6 +22,11 @@ void modes_init()
 {
   modes_activeMode = &modes_modeArray[modes_activeMode_index];
   modes_activeMode->handleChange();
+
+  waves_currentWaveformNumber = 0;
+  waves_currentWaveformPointer =
+    (uint8_t*)pgm_read_word(&waves_waveformArray[waves_currentWaveformNumber]);
+  lad_display_hex(waves_currentWaveformNumber);
 }
 
 
@@ -87,15 +92,15 @@ void modes_common_encDecHandle()
 
 void modes_FreqHandle_lp_pot()
 {
-  uint8_t period = 255 - io_curr_pots[AVR_ADC_CHANNEL_FREQ];
+  uint8_t period = 255 - io_curr_pots[AVR_ADC_INDEX_FREQ];
   spiAdc_setSamplerate(period);
 }
 
 void modes_FreqHandle_hp_pot()
 {
-  uint8_t period = 255 - io_curr_pots[AVR_ADC_CHANNEL_FREQ];
+  uint8_t period = 255 - io_curr_pots[AVR_ADC_INDEX_FREQ];
   period <<= MODES_HP_SHIFT;
-  spiAdc_setSamplerate(io_curr_pots[AVR_ADC_CHANNEL_FREQ]);
+  spiAdc_setSamplerate(io_curr_pots[AVR_ADC_INDEX_FREQ]);
 }
 
 void modes_BitsHandle_pot()
@@ -103,7 +108,7 @@ void modes_BitsHandle_pot()
   if (io_curr_bits_sw)
   {
     uint8_t mask = 0xFF;
-    uint8_t shift = io_curr_pots[AVR_ADC_CHANNEL_BITS];
+    uint8_t shift = io_curr_pots[AVR_ADC_INDEX_BITS];
     shift <<= 5;
     mask >>= shift;
     mask <<= shift;
@@ -111,21 +116,21 @@ void modes_BitsHandle_pot()
   }
   else
   {
-    spiAdc_bitmask = io_curr_pots[AVR_ADC_CHANNEL_BITS];
+    spiAdc_bitmask = io_curr_pots[AVR_ADC_INDEX_BITS];
   }
 }
 
 void modes_FreqHandle_lp_cv()
 {
-  uint8_t period = 255 - io_curr_pots[AVR_ADC_CHANNEL_CV];
+  uint8_t period = 255 - io_curr_pots[AVR_ADC_INDEX_CV];
   spiAdc_setSamplerate(period);
 }
 
 void modes_FreqHandle_hp_cv()
 {
-  uint8_t period = 255 - io_curr_pots[AVR_ADC_CHANNEL_CV];
+  uint8_t period = 255 - io_curr_pots[AVR_ADC_INDEX_CV];
   period <<= MODES_HP_SHIFT;
-  spiAdc_setSamplerate(io_curr_pots[AVR_ADC_CHANNEL_CV]);
+  spiAdc_setSamplerate(io_curr_pots[AVR_ADC_INDEX_CV]);
 }
 
 void modes_BitsHandle_cv()
@@ -133,7 +138,7 @@ void modes_BitsHandle_cv()
   if (io_curr_bits_sw)
   {
     uint8_t mask = 0xFF;
-    uint8_t shift = io_curr_pots[AVR_ADC_CHANNEL_CV];
+    uint8_t shift = io_curr_pots[AVR_ADC_INDEX_CV];
     shift <<= 5;
     mask >>= shift;
     mask <<= shift;
@@ -141,7 +146,7 @@ void modes_BitsHandle_cv()
   }
   else
   {
-    spiAdc_bitmask = io_curr_pots[AVR_ADC_CHANNEL_CV];
+    spiAdc_bitmask = io_curr_pots[AVR_ADC_INDEX_CV];
   }
 }
 
@@ -150,7 +155,7 @@ void modes_FreqBitsHandle_hp_cv()
   if (io_curr_bits_sw)
   {
     uint8_t mask = 0xFF;
-    uint8_t shift = io_curr_pots[AVR_ADC_CHANNEL_CV];
+    uint8_t shift = io_curr_pots[AVR_ADC_INDEX_CV];
     shift <<= 5;
     mask >>= shift;
     mask <<= shift;
@@ -158,12 +163,12 @@ void modes_FreqBitsHandle_hp_cv()
   }
   else
   {
-    spiAdc_bitmask = io_curr_pots[AVR_ADC_CHANNEL_CV];
+    spiAdc_bitmask = io_curr_pots[AVR_ADC_INDEX_CV];
   }
 
-  uint8_t period = 255 - io_curr_pots[AVR_ADC_CHANNEL_CV];
+  uint8_t period = 255 - io_curr_pots[AVR_ADC_INDEX_CV];
   period <<= MODES_HP_SHIFT;
-  spiAdc_setSamplerate(io_curr_pots[AVR_ADC_CHANNEL_CV]);
+  spiAdc_setSamplerate(io_curr_pots[AVR_ADC_INDEX_CV]);
 }
 
 
@@ -172,7 +177,7 @@ void modes_FreqBitsHandle_lp_cv()
   if (io_curr_bits_sw)
   {
     uint8_t mask = 0xFF;
-    uint8_t shift = io_curr_pots[AVR_ADC_CHANNEL_CV];
+    uint8_t shift = io_curr_pots[AVR_ADC_INDEX_CV];
     shift <<= 5;
     mask >>= shift;
     mask <<= shift;
@@ -180,10 +185,10 @@ void modes_FreqBitsHandle_lp_cv()
   }
   else
   {
-    spiAdc_bitmask = io_curr_pots[AVR_ADC_CHANNEL_CV];
+    spiAdc_bitmask = io_curr_pots[AVR_ADC_INDEX_CV];
   }
 
-  uint8_t period = 255 - io_curr_pots[AVR_ADC_CHANNEL_CV];
+  uint8_t period = 255 - io_curr_pots[AVR_ADC_INDEX_CV];
   spiAdc_setSamplerate(period);
 }
 
@@ -275,31 +280,32 @@ def generateMode(code):
     cog.outl('  spiAdc_bitmask_before = 0;')
   cog.outl('}')
 
-  #generate mode struct
-  cog.outl('const Mode modes_mode'+str(code)+'_struct = {')
-  cog.outl('  &modes_common_doNothing,')
-  cog.outl('  &modes_mode'+str(code)+'_handleChange,')
-  cog.outl('  &' + freqHandle + ',')
-  cog.outl('  &' + bitsHandle + ',')
-  cog.outl('  &' + cvHandle + ',')
-  cog.outl('  &modes_common_switchBitsHandle, ')
-  cog.outl('  &modes_common_nextMode, ')
-  cog.outl('  &modes_common_encIncHandle, ')
-  cog.outl('  &modes_common_encDecHandle ')
-  cog.outl('};')
+  #return mode struct
+  modeStruct = ''
+  modeStruct += '{'
+  modeStruct += '  &modes_common_doNothing,'
+  modeStruct += '  &modes_mode'+str(code)+'_handleChange,'
+  modeStruct += '  &' + freqHandle + ','
+  modeStruct += '  &' + bitsHandle + ','
+  modeStruct += '  &' + cvHandle + ','
+  modeStruct += '  &modes_common_switchBitsHandle, '
+  modeStruct += '  &modes_common_nextMode, '
+  modeStruct += '  &modes_common_encIncHandle, '
+  modeStruct += '  &modes_common_encDecHandle '
+  modeStruct += '}'
 
+  return modeStruct
 
+# generate handleChange functions and save structs for later
+modeStructs = []
 for num in range(0, 0b1111):
-  generateMode(num)
+  modeStructs.append(generateMode(num))
 
 cog.outl()
 cog.outl()
 
 cog.out('Mode modes_modeArray[15] = {')
-modeArr = []
-for num in range(0, 0b1111+1):
-  modeArr.append('modes_mode'+str(num)+'_struct')
-cog.out(', '.join(modeArr))
+cog.out(', \n'.join(modeStructs))
 cog.outl('};')
 
 cog.out('uint8_t modes_modeArray_length = 15;')
@@ -312,12 +318,6 @@ void modes_mode0_handleChange()
   modes_BitsHandle_pot();
   spiAdc_bitmask_before = 0;
 }
-const Mode modes_mode0_struct = {
-  &modes_common_doNothing,   &modes_mode0_handleChange,
-  &modes_FreqHandle_lp_pot,  &modes_BitsHandle_pot,
-  &modes_common_doNothing,   &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 1
 void modes_mode1_handleChange()
 {
@@ -326,12 +326,6 @@ void modes_mode1_handleChange()
   modes_BitsHandle_pot();
   spiAdc_bitmask_before = 0;
 }
-const Mode modes_mode1_struct = {
-  &modes_common_doNothing,   &modes_mode1_handleChange,
-  &modes_FreqHandle_hp_pot,  &modes_BitsHandle_pot,
-  &modes_common_doNothing,   &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 2
 void modes_mode2_handleChange()
 {
@@ -340,12 +334,6 @@ void modes_mode2_handleChange()
   modes_BitsHandle_pot();
   spiAdc_bitmask_before = 1;
 }
-const Mode modes_mode2_struct = {
-  &modes_common_doNothing,   &modes_mode2_handleChange,
-  &modes_FreqHandle_lp_pot,  &modes_BitsHandle_pot,
-  &modes_common_doNothing,   &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 3
 void modes_mode3_handleChange()
 {
@@ -354,12 +342,6 @@ void modes_mode3_handleChange()
   modes_BitsHandle_pot();
   spiAdc_bitmask_before = 1;
 }
-const Mode modes_mode3_struct = {
-  &modes_common_doNothing,   &modes_mode3_handleChange,
-  &modes_FreqHandle_hp_pot,  &modes_BitsHandle_pot,
-  &modes_common_doNothing,   &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 4
 void modes_mode4_handleChange()
 {
@@ -368,12 +350,6 @@ void modes_mode4_handleChange()
   modes_FreqHandle_lp_cv();
   spiAdc_bitmask_before = 0;
 }
-const Mode modes_mode4_struct = {
-  &modes_common_doNothing,   &modes_mode4_handleChange,
-  &modes_common_doNothing,   &modes_BitsHandle_pot,
-  &modes_FreqHandle_lp_cv,   &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 5
 void modes_mode5_handleChange()
 {
@@ -382,12 +358,6 @@ void modes_mode5_handleChange()
   modes_FreqHandle_hp_cv();
   spiAdc_bitmask_before = 0;
 }
-const Mode modes_mode5_struct = {
-  &modes_common_doNothing,   &modes_mode5_handleChange,
-  &modes_common_doNothing,   &modes_BitsHandle_pot,
-  &modes_FreqHandle_hp_cv,   &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 6
 void modes_mode6_handleChange()
 {
@@ -396,12 +366,6 @@ void modes_mode6_handleChange()
   modes_FreqHandle_lp_cv();
   spiAdc_bitmask_before = 1;
 }
-const Mode modes_mode6_struct = {
-  &modes_common_doNothing,   &modes_mode6_handleChange,
-  &modes_common_doNothing,   &modes_BitsHandle_pot,
-  &modes_FreqHandle_lp_cv,   &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 7
 void modes_mode7_handleChange()
 {
@@ -410,12 +374,6 @@ void modes_mode7_handleChange()
   modes_FreqHandle_hp_cv();
   spiAdc_bitmask_before = 1;
 }
-const Mode modes_mode7_struct = {
-  &modes_common_doNothing,   &modes_mode7_handleChange,
-  &modes_common_doNothing,   &modes_BitsHandle_pot,
-  &modes_FreqHandle_hp_cv,   &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 8
 void modes_mode8_handleChange()
 {
@@ -424,12 +382,6 @@ void modes_mode8_handleChange()
   modes_BitsHandle_cv();
   spiAdc_bitmask_before = 0;
 }
-const Mode modes_mode8_struct = {
-  &modes_common_doNothing,   &modes_mode8_handleChange,
-  &modes_FreqHandle_lp_pot,  &modes_common_doNothing,
-  &modes_BitsHandle_cv,      &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 9
 void modes_mode9_handleChange()
 {
@@ -438,12 +390,6 @@ void modes_mode9_handleChange()
   modes_BitsHandle_cv();
   spiAdc_bitmask_before = 0;
 }
-const Mode modes_mode9_struct = {
-  &modes_common_doNothing,   &modes_mode9_handleChange,
-  &modes_FreqHandle_hp_pot,  &modes_common_doNothing,
-  &modes_BitsHandle_cv,      &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 10
 void modes_mode10_handleChange()
 {
@@ -452,12 +398,6 @@ void modes_mode10_handleChange()
   modes_BitsHandle_cv();
   spiAdc_bitmask_before = 1;
 }
-const Mode modes_mode10_struct = {
-  &modes_common_doNothing,   &modes_mode10_handleChange,
-  &modes_FreqHandle_lp_pot,  &modes_common_doNothing,
-  &modes_BitsHandle_cv,      &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 11
 void modes_mode11_handleChange()
 {
@@ -466,12 +406,6 @@ void modes_mode11_handleChange()
   modes_BitsHandle_cv();
   spiAdc_bitmask_before = 1;
 }
-const Mode modes_mode11_struct = {
-  &modes_common_doNothing,   &modes_mode11_handleChange,
-  &modes_FreqHandle_hp_pot,  &modes_common_doNothing,
-  &modes_BitsHandle_cv,      &modes_common_switchBitsHandle,
-  &modes_common_nextMode,    &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 12
 void modes_mode12_handleChange()
 {
@@ -479,12 +413,6 @@ void modes_mode12_handleChange()
   modes_FreqBitsHandle_lp_cv();
   spiAdc_bitmask_before = 0;
 }
-const Mode modes_mode12_struct = {
-  &modes_common_doNothing,     &modes_mode12_handleChange,
-  &modes_common_doNothing,     &modes_common_doNothing,
-  &modes_FreqBitsHandle_lp_cv, &modes_common_switchBitsHandle,
-  &modes_common_nextMode,      &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 13
 void modes_mode13_handleChange()
 {
@@ -492,12 +420,6 @@ void modes_mode13_handleChange()
   modes_FreqBitsHandle_hp_cv();
   spiAdc_bitmask_before = 0;
 }
-const Mode modes_mode13_struct = {
-  &modes_common_doNothing,     &modes_mode13_handleChange,
-  &modes_common_doNothing,     &modes_common_doNothing,
-  &modes_FreqBitsHandle_hp_cv, &modes_common_switchBitsHandle,
-  &modes_common_nextMode,      &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 // MODE 14
 void modes_mode14_handleChange()
 {
@@ -505,20 +427,68 @@ void modes_mode14_handleChange()
   modes_FreqBitsHandle_lp_cv();
   spiAdc_bitmask_before = 1;
 }
-const Mode modes_mode14_struct = {
-  &modes_common_doNothing,     &modes_mode14_handleChange,
-  &modes_common_doNothing,     &modes_common_doNothing,
-  &modes_FreqBitsHandle_lp_cv, &modes_common_switchBitsHandle,
-  &modes_common_nextMode,      &modes_common_encIncHandle,
-  &modes_common_encDecHandle};
 
 
 Mode modes_modeArray[15] = {
-  modes_mode0_struct,  modes_mode1_struct,  modes_mode2_struct,
-  modes_mode3_struct,  modes_mode4_struct,  modes_mode5_struct,
-  modes_mode6_struct,  modes_mode7_struct,  modes_mode8_struct,
-  modes_mode9_struct,  modes_mode10_struct, modes_mode11_struct,
-  modes_mode12_struct, modes_mode13_struct, modes_mode14_struct,
-  modes_mode15_struct};
+  {&modes_common_doNothing, &modes_mode0_handleChange, &modes_FreqHandle_lp_pot,
+   &modes_BitsHandle_pot, &modes_common_doNothing,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode1_handleChange, &modes_FreqHandle_hp_pot,
+   &modes_BitsHandle_pot, &modes_common_doNothing,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode2_handleChange, &modes_FreqHandle_lp_pot,
+   &modes_BitsHandle_pot, &modes_common_doNothing,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode3_handleChange, &modes_FreqHandle_hp_pot,
+   &modes_BitsHandle_pot, &modes_common_doNothing,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode4_handleChange, &modes_common_doNothing,
+   &modes_BitsHandle_pot, &modes_FreqHandle_lp_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode5_handleChange, &modes_common_doNothing,
+   &modes_BitsHandle_pot, &modes_FreqHandle_hp_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode6_handleChange, &modes_common_doNothing,
+   &modes_BitsHandle_pot, &modes_FreqHandle_lp_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode7_handleChange, &modes_common_doNothing,
+   &modes_BitsHandle_pot, &modes_FreqHandle_hp_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode8_handleChange, &modes_FreqHandle_lp_pot,
+   &modes_common_doNothing, &modes_BitsHandle_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode9_handleChange, &modes_FreqHandle_hp_pot,
+   &modes_common_doNothing, &modes_BitsHandle_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode10_handleChange,
+   &modes_FreqHandle_lp_pot, &modes_common_doNothing, &modes_BitsHandle_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode11_handleChange,
+   &modes_FreqHandle_hp_pot, &modes_common_doNothing, &modes_BitsHandle_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode12_handleChange, &modes_common_doNothing,
+   &modes_common_doNothing, &modes_FreqBitsHandle_lp_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode13_handleChange, &modes_common_doNothing,
+   &modes_common_doNothing, &modes_FreqBitsHandle_hp_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle},
+  {&modes_common_doNothing, &modes_mode14_handleChange, &modes_common_doNothing,
+   &modes_common_doNothing, &modes_FreqBitsHandle_lp_cv,
+   &modes_common_switchBitsHandle, &modes_common_nextMode,
+   &modes_common_encIncHandle, &modes_common_encDecHandle}};
 uint8_t modes_modeArray_length = 15;
 // [[[end]]]

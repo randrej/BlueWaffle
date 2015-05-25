@@ -101,24 +101,24 @@ void io_inputPoll()
 
 
   // pot handling
-  if (avrAdc_inputVector[AVR_ADC_CHANNEL_CV] !=
-      io_curr_pots[AVR_ADC_CHANNEL_CV])
+  if (avrAdc_inputVector[AVR_ADC_INDEX_CV] !=
+      io_curr_pots[AVR_ADC_INDEX_CV])
   {
-    io_curr_pots[AVR_ADC_CHANNEL_CV] = avrAdc_inputVector[AVR_ADC_CHANNEL_CV];
+    io_curr_pots[AVR_ADC_INDEX_CV] = avrAdc_inputVector[AVR_ADC_INDEX_CV];
     modes_activeMode->potCVHandle();
   }
-  if (avrAdc_inputVector[AVR_ADC_CHANNEL_FREQ] !=
-      io_curr_pots[AVR_ADC_CHANNEL_FREQ])
+  if (avrAdc_inputVector[AVR_ADC_INDEX_FREQ] !=
+      io_curr_pots[AVR_ADC_INDEX_FREQ])
   {
-    io_curr_pots[AVR_ADC_CHANNEL_FREQ] =
-      avrAdc_inputVector[AVR_ADC_CHANNEL_FREQ];
+    io_curr_pots[AVR_ADC_INDEX_FREQ] =
+      avrAdc_inputVector[AVR_ADC_INDEX_FREQ];
     modes_activeMode->potFreqHandle();
   }
-  if (avrAdc_inputVector[AVR_ADC_CHANNEL_BITS] !=
-      io_curr_pots[AVR_ADC_CHANNEL_BITS])
+  if (avrAdc_inputVector[AVR_ADC_INDEX_BITS] !=
+      io_curr_pots[AVR_ADC_INDEX_BITS])
   {
-    io_curr_pots[AVR_ADC_CHANNEL_BITS] =
-      avrAdc_inputVector[AVR_ADC_CHANNEL_BITS];
+    io_curr_pots[AVR_ADC_INDEX_BITS] =
+      avrAdc_inputVector[AVR_ADC_INDEX_BITS];
     modes_activeMode->potBitsHandle();
   }
 }

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"io_cu",
+				"io_curr_bits_sw"
+			],
+			[
 				"PC_C",
 				"PC_CHECK"
 			],
@@ -56,26 +60,18 @@
 	"buffers":
 	[
 		{
-			"file": "Waveforms.c",
-			"settings":
-			{
-				"buffer_size": 5450,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Modes.h",
-			"settings":
-			{
-				"buffer_size": 720,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "Modes.c",
 			"settings":
 			{
-				"buffer_size": 3256,
+				"buffer_size": 13753,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Users/Andrej/Documents/GitHub/BlueWaffle/.gitignore",
+			"settings":
+			{
+				"buffer_size": 712,
 				"line_ending": "Windows"
 			}
 		}
@@ -104,8 +100,28 @@
 				"Git: Add Current File"
 			],
 			[
+				"gutter",
+				"GitGutter: Show Comparing Against"
+			],
+			[
 				"push",
 				"Git: Push"
+			],
+			[
+				"co",
+				"Git: Commit"
+			],
+			[
+				"qu",
+				"Git: Quick Commit"
+			],
+			[
+				"com",
+				"Git: Commit"
+			],
+			[
+				"status",
+				"Git: Status"
 			],
 			[
 				"qui",
@@ -176,7 +192,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 512.0
+		"width": 464.0
 	},
 	"console":
 	{
@@ -201,14 +217,23 @@
 	],
 	"file_history":
 	[
-		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/LedsAndDisplay.c",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/Modes.c",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/Waveforms.c",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/Waveforms.json",
 		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/IOProcessor.c",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/spiAdc.c",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/AvrAdc.c",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/spiAdc.h",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/AvrAdc.h",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/IOProcessor.h",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/Modes.h",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/main.c",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/Waveforms.h",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/LedsAndDisplay.c",
+		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/README.md",
 		"/D/Users/Andrej/Desktop/pedale i switcheri/SublimeEmbedded/Data/Packages/User/Git.sublime-settings",
 		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/LedsAndDisplay.h",
-		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/AvrAdc.h",
-		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/README.md",
 		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/.gitignore",
-		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/AvrAdc.c",
 		"/D/Users/Andrej/Desktop/pedale i switcheri/SublimeEmbedded/Data/Packages/Git/Git.sublime-settings",
 		"/D/Users/Andrej/Documents/GitHub/BlueWaffle/ATmega1284P/AvrMacroLibrary.h",
 		"/D/Users/Andrej/Desktop/pedale i switcheri/embedded projekti/BlueWaffle/ATmega1284P/IOProcessor.h",
@@ -254,6 +279,7 @@
 		"height": 90.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -261,6 +287,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"AVR_ADC_CHANNEL",
+			"avrAdc_inputVector_length",
+			"AVR_ADC_CHANNEL",
+			"freqbitshandle",
+			"modes_BitsHandle_lp_cv",
+			"mmask",
+			"ask << shift",
+			"mask >> shift",
+			"WAVES_READ_SAMPLE",
+			"code",
+			"&&",
+			"else",
+			"pre",
+			"pot",
+			"modes_FreqHandle_lp_pot",
+			"next",
 			"PC_CHE",
 			"lad_ledsArray",
 			"PROGMEMTEXT_H",
@@ -331,6 +373,11 @@
 		"regex": true,
 		"replace_history":
 		[
+			"AVR_ADC_INDEX",
+			"mask",
+			"mask <<= shift",
+			"mask >>= shift",
+			"and",
 			"AVR_ADC_",
 			"C_SPI_TRANSFER_COMPLETE",
 			"C_SPI_MASTER",
@@ -386,19 +433,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "Waveforms.c",
-					"semi_transient": true,
+					"file": "Modes.c",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5450,
+						"buffer_size": 13753,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1483,
-								1483
+								358,
+								358
 							]
 						],
 						"settings":
@@ -406,152 +453,65 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content"
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content"
 							],
 							"syntax": "Packages/C++/C.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 593.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Modes.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 720,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								482,
-								482
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content"
-							],
-							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -559,28 +519,22 @@
 					},
 					"stack_index": 1,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
-					"buffer": 2,
-					"file": "Modes.c",
+					"buffer": 1,
+					"file": "/D/Users/Andrej/Documents/GitHub/BlueWaffle/.gitignore",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3256,
+						"buffer_size": 712,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2066,
-								2066
+								711,
+								711
 							]
 						],
 						"settings":
@@ -588,68 +542,66 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content"
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content"
 							],
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1298.0,
+						"translation.y": 1020.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -675,18 +627,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.5,
 			1.0
 		],
 		"rows":
@@ -708,7 +653,7 @@
 	"project": "BlueWaffle.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":

@@ -42,6 +42,8 @@ typedef const struct __modeDefinition
 void modes_nextMode();
 void modes_prevMode();
 
+void modes_init();
+
 extern Mode* modes_activeMode;
 extern uint8_t modes_activeMode_index;
 extern Mode modes_modeArray[];
