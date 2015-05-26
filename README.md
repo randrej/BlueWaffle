@@ -1,5 +1,6 @@
 # Blue Waffle
 An AVR based waveshaping/bitreduction pedal - Alpha version
+
 It may or may not work, but it simulates pretty nicely in Proteus.
 
 ## Introduction
