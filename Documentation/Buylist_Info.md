@@ -21,4 +21,4 @@ Additional instructions:
 * all chips should have sockets
 
 For extra details, and to eliminate any doubt, here's a pic of the parts we want:
-!(GC)[http://dl.dropboxusercontent.com/u/23975614/waves/waffle/DSC02951.JPG]
+![GC](http://dl.dropboxusercontent.com/u/23975614/waves/waffle/DSC02951.JPG)
