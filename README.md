@@ -8,7 +8,7 @@ There is a strange lack of open-source digital pedals, althogh there certainly i
 ##Specs
 BlueWaffle is a work-a-like of a commercial pedal, with the following features:
 * high-gain analog input preamp
-* "AMZ Presence Control" tone control, defeatable
+* [AMZ Presence Control](http://www.muzique.com/lab/tone3.htm) tone control, defeatable
 * 8bit signal processing
 * 245Hz - 62.5kHz continuously variable (256 steps) sampling rate
 * 252 waveforms represented by arrays
