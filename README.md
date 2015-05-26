@@ -1,5 +1,6 @@
 # Blue Waffle
-An AVR based waveshaping/bitreduction pedal - INCOMPLETE! will be done in the next week.
+An AVR based waveshaping/bitreduction pedal - Alpha version
+It may or may not work, but it simulates pretty nicely in Proteus.
 
 ## Introduction
 Waveshapers and bitcrushers are pretty much the simplest digital signal processors, but they are very usable and versatile.
@@ -39,6 +40,11 @@ Modes are implemented by a const struct array - based statemachine which is part
 Encoder and buttons are sampled continuously in the device's main loop.
 
 There's a JS-based waveform generator included in the project  - [WaveformGenerator](http://randrej.github.io/BlueWaffle/). You can use it to draw or make wavetables from functions by pasting arrays into a JSON file (See Waveforms.c's comments for explanation).
+
+###Help
+It would really help me if someone could make a buy-list from some EU supplier, with the things listed in the schematic, BOM, and 'Buylist_Info.md' in the Documentation folder.
+
+That way everyone could just all of the parts at once, myself included. I hate sourcing parts.
 
 ##Licence
 Original developer: Andrej Radovic (r.andrej@gmail.com)
