@@ -18,7 +18,6 @@ int main()
   avrAdc_init();
   lad_init();
   io_init();
-  // cli();
 
   while (1)
   {
