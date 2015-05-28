@@ -38,7 +38,8 @@ void spiAdc_init(void)
   //----------------------------------------------------------------------------
 
   // DAC out
-  SETBITMASK(DDRC, 0b11111111);  // set portc to outuput for DAC
+  SETBITMASK(DAC_OUT_DIRECTION,
+             0b11111111);  // set DAC_OUT_PORT to outuput for DAC
 
   // ADC pins
   PC_SET_OUTPUT(SPI_ADC_CS);
@@ -162,12 +163,12 @@ ISR(TIMER0_COMPA_vect)
   // TODO: replace with bitcode
   if (spiAdc_bitmask_before)
   {
-    PORTC =
+    DAC_OUT_PORT =
       pgm_read_byte(&waves_currentWaveformPointer[input & spiAdc_bitmask]);
   }
   else
   {
-    PORTC =
+    DAC_OUT_PORT =
       pgm_read_byte(&waves_currentWaveformPointer[input]) & spiAdc_bitmask;
   }
 

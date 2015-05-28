@@ -13,8 +13,8 @@
 #define LAD_DISPLAY_MSD 6
 #define LAD_LEDS 5
 
-#define LAD_OUT_PORT PORTD
-#define LAD_OUT_DIR DDRD
+#define LAD_OUT_PORT PORTC
+#define LAD_OUT_DIR DDRC
 
 #define LAD_PINS_MASK 0b11100000
 #define LAD_PINS_PORT PORTA
